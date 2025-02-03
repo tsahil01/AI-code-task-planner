@@ -1,4 +1,11 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { sendLlama } from './main/llama';
+import { llamaInitialContext } from './config/const';
 
-const API_KEY = process.env.API_KEY || '';
+
+
+async function main() {
+    const aiInit = await sendLlama(llamaInitialContext)
+    console.log(aiInit)
+}
+
+main()
