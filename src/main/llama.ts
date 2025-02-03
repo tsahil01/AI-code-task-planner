@@ -1,21 +1,12 @@
 import OpenAI from "openai"
-import { llamaInitialContext, llamaInitialContextResponse } from "../config/const";
-const dotenv = require('dotenv');
-dotenv.config();
-
-interface Message {
-    role: 'user' | 'assistant';
-    content: string;
-}
-
-const API_KEY = process.env.API_KEY ?? "";
+import { API_KEY, llamaInitialContext, llamaInitialContextResponse } from "../config/consts";
+import { Message } from "../config/types";
 
 const openai = new OpenAI({
     baseURL: "https://openrouter.ai/api/v1",
     apiKey: API_KEY,
 
 });
-
 
 const messages: Message[] = [
     {
