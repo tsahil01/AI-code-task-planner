@@ -31,4 +31,4 @@ export const llamaFileReadResponse = `
 Thnakyou for allowing me to access your repository. I have read the file and here is the content of the file.
 How can I assist you regarding planning of tasks based on the content of the file?`
 
-export const IGNORE_LIST = ["node_modules", ".git", "dist", "build", "out", "package-lock.json"];
+export const IGNORE_LIST = ["node_modules", "dist", "build", "out", "package-lock.json"];
