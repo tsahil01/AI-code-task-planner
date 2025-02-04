@@ -1,5 +1,5 @@
 import OpenAI from "openai"
-import { API_KEY, llamaFileReadResponse, llamaInitialContext, llamaInitialContextResponse } from "../config/consts";
+import { API_KEY, llamaInitialContext, llamaInitialContextResponse } from "../config/consts";
 import { Message } from "../config/types";
 
 const openai = new OpenAI({
@@ -20,18 +20,16 @@ const messages: Message[] = [
 ]
 
 
-export async function sendLlama({ role, content, isInitialContext = false }: Message & { isInitialContext?: boolean }): Promise<string> {
+export async function sendLlama({ role, content }: Message): Promise<string> {
+    console.log("Role: ", role, "Content: ", content);
     messages.push({ role, content });
-    if (isInitialContext) {
-        messages.push({ role: "assistant", content: llamaFileReadResponse });
-        return llamaFileReadResponse
-    }
-
     try {
         const completion = await openai.chat.completions.create({
-            model: "google/gemini-2.0-flash-exp:free",
+            model: "anthropic/claude-3.5-haiku",
             messages: messages,
         });
+
+        console.log("Completion: ", completion);
 
         const response = completion.choices[0].message;
         messages.push({ role: response.role, content: response.content ?? "" });

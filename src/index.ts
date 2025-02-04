@@ -5,10 +5,10 @@ import { sendLlama } from './main/llama';
 export let repo: File | null = null;
 
 async function main() {
-    repo = await analyzeFiles('/home/sahil/coding/teamOB-app');
-    const aiInit = await sendLlama({role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}`, isInitialContext: true});
+    repo = await analyzeFiles('/home/sahil/coding/AI-code-task-planner');
+    const aiInit = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` });
     console.log(aiInit);
-    const aiResponse = await sendLlama({role: 'user', content: 'How can I use authO in this project?', isInitialContext: false});
+    const aiResponse = await sendLlama({ role: 'user', content: 'How can I use authO in this project?' });
     console.log(aiResponse);
 }
 
