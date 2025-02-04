@@ -1,5 +1,5 @@
 import OpenAI from "openai"
-import { API_KEY, llamaInitialContext, llamaInitialContextResponse } from "../config/consts";
+import { API_KEY, llamaFileReadResponse, llamaInitialContext, llamaInitialContextResponse } from "../config/consts";
 import { Message } from "../config/types";
 
 const openai = new OpenAI({
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 const messages: Message[] = [
     {
         "role": "user",
-        "content": llamaInitialContext
+        "content": llamaInitialContext,
     },
     {
         "role": "assistant",
@@ -20,16 +20,26 @@ const messages: Message[] = [
 ]
 
 
-export async function sendLlama(content: string) {
-    messages.push({ role: "user", content });
+export async function sendLlama({ role, content, isInitialContext = false }: Message & { isInitialContext?: boolean }): Promise<string> {
+    messages.push({ role, content });
+    if (isInitialContext) {
+        messages.push({ role: "assistant", content: llamaFileReadResponse });
+        return llamaFileReadResponse
+    }
 
-    const completion = await openai.chat.completions.create({
-        model: "anthropic/claude-3.5-haiku",
-        messages: messages,
-    });
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "google/gemini-2.0-flash-exp:free",
+            messages: messages,
+        });
 
-    const response = completion.choices[0].message;
-    messages.push({ role: response.role, content: response.content ?? "" });
+        const response = completion.choices[0].message;
+        messages.push({ role: response.role, content: response.content ?? "" });
 
-    return response;
+        return response.content ?? "";
+    } catch (error) {
+        console.error("Error: ", error);
+        messages.push({ role: "assistant", content: "Error occurred while processing the request" });
+        return "Error occurred while processing the request";
+    }
 }
