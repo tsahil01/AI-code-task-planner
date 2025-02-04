@@ -20,24 +20,26 @@ const messages: Message[] = [
 ]
 
 
-export async function sendLlama({ role, content }: Message): Promise<string> {
-    console.log("Role: ", role, "Content: ", content);
+export async function sendLlama({ role, content }: Message, response: (token: string) => void) {
     messages.push({ role, content });
     try {
         const completion = await openai.chat.completions.create({
-            model: "anthropic/claude-3.5-haiku",
+            model: "meta-llama/llama-3.2-1b-instruct:free",
             messages: messages,
+            stream: true
         });
 
-        console.log("Completion: ", completion);
+        let fullContent = "";
+        for await (const chunk of completion) {
+            response(chunk.choices[0]?.delta?.content || '');
+            fullContent += chunk.choices[0]?.delta?.content || '';
+        }
+        messages.push({ role: 'assistant', content: fullContent });
 
-        const response = completion.choices[0].message;
-        messages.push({ role: response.role, content: response.content ?? "" });
-
-        return response.content ?? "";
     } catch (error) {
         console.error("Error: ", error);
         messages.push({ role: "assistant", content: "Error occurred while processing the request" });
+        response("Error occurred while processing the request");
         return "Error occurred while processing the request";
     }
 }

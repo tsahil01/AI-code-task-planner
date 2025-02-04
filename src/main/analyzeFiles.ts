@@ -19,7 +19,7 @@ export async function analyzeFiles(dirPath: string): Promise<File> {
     const files = await fs.readdir(dirPath);
     const children: File[] = await Promise.all(
         files
-            .filter((file) => !IGNORE_LIST.includes(file) && !file.startsWith("."))
+            .filter((file) => !IGNORE_LIST.includes(file) && !file.startsWith(".") && !file.startsWith("tsconfig."))
             .map(async (file) => analyzeFiles(path.join(dirPath, file)))
     );
 
