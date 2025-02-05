@@ -37,5 +37,9 @@ npm run start
 ## Using NPM:
 1. Install the package globally.
 ```bash
-npm install -g codetask
+$ npm install -g codetask
+```
+2. Open the terminal and run the following command.
+```bash
+$ codetask
 ```
