@@ -35,6 +35,7 @@ export async function sendLlama({ role, content }: Message, response: (token: st
             fullContent += chunk.choices[0]?.delta?.content || '';
         }
         messages.push({ role: 'assistant', content: fullContent });
+        return fullContent;
 
     } catch (error) {
         console.error("Error: ", error);

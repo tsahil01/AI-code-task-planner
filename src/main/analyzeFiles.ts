@@ -13,6 +13,7 @@ export async function analyzeFiles(dirPath: string): Promise<File> {
                 isDirectory: false,
                 extension: path.extname(dirPath).slice(1),
                 content: await fs.readFile(dirPath, "utf-8").catch(() => undefined),
+                exist: true,
             };
         }
 
@@ -27,14 +28,15 @@ export async function analyzeFiles(dirPath: string): Promise<File> {
             name: path.basename(dirPath),
             isDirectory: true,
             children,
+            exist: true,
         };
     } catch (error) {
-        console.error(error);
         return {
             name: path.basename(dirPath),
             isDirectory: false,
             extension: path.extname(dirPath).slice(1),
             content: undefined,
+            exist: false,
         };
     }
 }

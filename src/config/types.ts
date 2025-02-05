@@ -9,4 +9,5 @@ export interface File {
     children?: File[];
     extension?: string;
     content?: string;
+    exist?: boolean;
 }
