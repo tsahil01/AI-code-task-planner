@@ -39,9 +39,11 @@ export function cli() {
                 if (input.length === 0) {
                     return 'Please enter a valid path';
                 }
-                const loading = showLoading('Reading your Codebase');
+                const loading = showLoading('Reading your Codebase')
+                loading.color = 'yellow';
+                loading.start();
                 repo = await analyzeFiles(input);
-                clearInterval(loading);
+                loading.stop();
 
                 if (!repo.exist) {
                     return 'Could not analyze the repository. Please enter a valid path';
@@ -60,8 +62,10 @@ export function cli() {
             if (repo) {
                 let tokens = ''
                 const loading = showLoading('Analyzing your Codebase');
+                loading.color = 'green';
+                loading.start();
                 const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
-                    clearInterval(loading); 
+                    loading.stop(); 
                     tokens += token;
                     logUpdate(chalk.italic.dim(tokens));
                 });

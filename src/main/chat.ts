@@ -42,8 +42,10 @@ export async function chat() {
 
             let tokens = ''
             const loading = showLoading('Processing your request');
+            loading.color = 'yellow';
+            loading.start();
             const responseText = await sendLlama({ role: 'user', content: message }, (token) => {
-                clearInterval(loading); 
+                loading.stop();
                 tokens += token;
                 logUpdate(chalk.italic.dim(tokens));
             });
