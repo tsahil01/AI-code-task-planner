@@ -11,9 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@types/inquirer": "^9.0.7",
+    "@types/marked-terminal": "^6.1.1",
+    "chalk": "^5.4.1",
     "dotenv": "^16.4.7",
     "inquirer": "^12.4.1",
     "log-update": "^6.1.0",
+    "marked": "^15.0.6",
+    "marked-terminal": "^7.3.0",
     "openai": "^4.82.0"
   }
 }

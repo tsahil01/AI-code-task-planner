@@ -5,11 +5,29 @@ import { sendLlama } from "./main/llama";
 import { File } from "./config/types";
 import { chat } from "./main/chat";
 import { showLoading } from "./config/config";
+import { marked } from 'marked';
+import TerminalRenderer from 'marked-terminal';
+import chalk from 'chalk';
+
+marked.setOptions({
+    renderer: new TerminalRenderer({
+        code: chalk.yellow,
+        blockquote: chalk.gray.italic,
+        // table: true,
+        listitem: chalk.cyan,
+        strong: chalk.bold,
+        em: chalk.italic,
+        heading: chalk.bold.underline,
+        hr: chalk.gray,
+        link: chalk.blue.underline,
+    }) as any
+});
 
 export function cli() {
-    console.log('Generate Plan | v1.0.0\n\n');
-
     let repo: File | null = null;
+
+    console.log(chalk.italic.greenBright('Generate Plan | v1.0.0\n'));
+
     inquirer.prompt({
         type: 'input',
         name: 'repo_path',
@@ -45,11 +63,11 @@ export function cli() {
                 });
                 clearInterval(loading);
                 logUpdate.clear();
-                console.log(data)
+                console.log('\n', marked(data));
                 await chat();
             }
         } catch (error) {
-            console.error('Error occurred while processing the request');
+            console.error(chalk.red('Error occurred while processing the request'));
         }
     });
 }

@@ -2,6 +2,23 @@ import inquirer from "inquirer";
 import { sendLlama } from "./llama";
 import logUpdate from "log-update";
 import { showLoading } from "../config/config";
+import { marked } from 'marked';
+import TerminalRenderer from 'marked-terminal';
+import chalk from 'chalk';
+
+marked.setOptions({
+    renderer: new TerminalRenderer({
+        code: chalk.yellow,
+        blockquote: chalk.gray.italic,
+        // table: true,
+        listitem: chalk.cyan,
+        strong: chalk.bold,
+        em: chalk.italic,
+        heading: chalk.bold.underline,
+        hr: chalk.gray,
+        link: chalk.blue.underline,
+    }) as any
+});
 
 export async function chat() {
     while (true) {
@@ -9,7 +26,7 @@ export async function chat() {
             const { message } = await inquirer.prompt({
                 type: 'input',
                 name: 'message',
-                message: '\nYou: ',
+                message: 'Enter a plan that you would like to generate or type "exit" to quit: ',
                 validate: async (input: string) => {
                     if (input.length === 0) {
                         return 'Please enter a valid message';
@@ -22,18 +39,18 @@ export async function chat() {
                 console.log('Exiting...');
                 return;
             }
+
             const loading = showLoading('Processing your request');
-            let response = await sendLlama({ role: 'user', content: message }, (token) => {
+            const responseText = await sendLlama({ role: 'user', content: message }, (token) => {
                 logUpdate(token);
             });
+
             clearInterval(loading);
             logUpdate.clear();
-
-            console.log('\n', response);
+            console.log('\n', marked(responseText));
 
         } catch (error) {
-            console.error('Error occurred while processing the request');
+            console.error(chalk.red('Error occurred while processing the request'));
         }
     }
-
 }
