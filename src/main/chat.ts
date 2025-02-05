@@ -9,7 +9,7 @@ export async function chat() {
             const { message } = await inquirer.prompt({
                 type: 'input',
                 name: 'message',
-                message: 'You: ',
+                message: '\nYou: ',
                 validate: async (input: string) => {
                     if (input.length === 0) {
                         return 'Please enter a valid message';
@@ -29,11 +29,10 @@ export async function chat() {
             clearInterval(loading);
             logUpdate.clear();
 
-            console.log('\nAnna:\n', response);
+            console.log('\n', response);
 
         } catch (error) {
             console.error('Error occurred while processing the request');
-            process.exit(1);
         }
     }
 

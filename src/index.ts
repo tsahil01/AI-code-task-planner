@@ -5,16 +5,14 @@ import { sendLlama } from './main/llama';
 
 export let repo: File | null = null;
 
+process.on('uncaughtException', (error) => {
+    if (error instanceof Error && error.name === 'ExitPromptError') {
+        console.log('👋 until next time!');
+    } else {
+        console.error('Error occurred while processing the request');
+    }
+});
 async function main() {
-    // repo = await analyzeFiles('/home/sahil/coding/teamOB-app');
-    // await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
-    //     process.stdout.write(token);
-    // });
-    // console.log('\n\n\n\n');
-    // await sendLlama({ role: 'user', content: 'Can you tell me how can we change AppName in the repo?' }, (token) => {
-    //     process.stdout.write(token);
-    // });
-
     cli();
 }
 

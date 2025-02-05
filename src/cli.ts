@@ -36,17 +36,20 @@ export function cli() {
         },
     },
     ).then(async () => {
-        if (repo) {
-            const loading = showLoading('Analyzing your Codebase');
-            const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
-                logUpdate(token);
-            });
-            clearInterval(loading);
-            logUpdate.clear();
+        try {
 
-            await chat();
-
-
+            if (repo) {
+                const loading = showLoading('Analyzing your Codebase');
+                const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
+                    logUpdate(token);
+                });
+                clearInterval(loading);
+                logUpdate.clear();
+                console.log(data)
+                await chat();
+            }
+        } catch (error) {
+            console.error('Error occurred while processing the request');
         }
     });
 }

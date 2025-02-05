@@ -26,7 +26,7 @@ export async function sendLlama({ role, content }: Message, response: (token: st
         const completion = await openai.chat.completions.create({
             model: "meta-llama/llama-3.2-1b-instruct:free",
             messages: messages,
-            stream: true
+            stream: true,
         });
 
         let fullContent = "";

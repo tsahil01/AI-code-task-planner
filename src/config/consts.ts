@@ -24,6 +24,7 @@ export const importantFormat = `
     <important>After the user provide you the repository content, you should respond them by thanking then and asking for the task they want to accomplish.</important>
     <VeryImportant>As soon as I provide contents dont start quickly... First tell them in very short message that you did understand and wait for user to tell what they want to do.</VeryImportant>
     <veryImportant>Whenever you are referring any part of existing code, always refer to it as "referring file_name (relative_path)"</veryImportant>
+    <veryImportant>Always try to seperate the text you give with ----- or some other separator</veryImportant>
 </ImporttantGuidelines>
 `;
 
