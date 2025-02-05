@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { cli } from './cli';
 import { File } from './config/types';
 

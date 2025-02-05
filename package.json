@@ -1,8 +1,11 @@
 {
-  "name": "codetask",
-  "version": "1.0.0",
+  "name": "code-task",
+  "version": "1.0.1",
   "description": "AI powered code task plan generator",
   "main": "dist/index.js",
+  "bin": {
+    "code-task": "dist/index.js"
+  },
   "scripts": {
     "dev": "npx tsc -b && node dist/index.js",
     "build": "npx tsc -b",
