@@ -8,6 +8,7 @@ import { showLoading } from "./config/config";
 import { marked } from 'marked';
 import TerminalRenderer from 'marked-terminal';
 import chalk from 'chalk';
+import process from 'process';
 
 marked.setOptions({
     renderer: new TerminalRenderer({
@@ -32,7 +33,7 @@ export function cli() {
         type: 'input',
         name: 'repo_path',
         message: 'Enter the path to the repository: ',
-        default: './',
+        default: process.cwd(),
         validate: async (input: string) => {
             try {
                 if (input.length === 0) {

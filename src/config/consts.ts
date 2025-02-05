@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 export const API_KEY = process.env.API_KEY ?? "";
-export const IGNORE_LIST = ["node_modules", "dist", "build", "out", "package-lock.json"];
+export const IGNORE_LIST = ["node_modules", "dist", "build", "out", "dist", "package-lock.json"];
 
 
 export const planningFormat = `
@@ -39,6 +39,7 @@ Your main focus should be on provinding task planning and how to approach the ta
 However, you may offer small code snippets when necessary. You can also share relevant documentation or blog links to help the user. 
 ${planningFormat}
 ${importantFormat}
+Files like ${IGNORE_LIST.join(", ")}, tsconfig.* will be ignored during the analysis.
 `;
 
 export const llamaInitialContextResponse = `
