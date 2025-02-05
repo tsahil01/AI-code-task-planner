@@ -24,7 +24,7 @@ export async function sendLlama({ role, content }: Message, response: (token: st
     messages.push({ role, content });
     try {
         const completion = await openai.chat.completions.create({
-            model: "meta-llama/llama-3.2-1b-instruct:free",
+            model: "qwen/qwen-2.5-coder-32b-instruct",
             messages: messages,
             stream: true,
         });

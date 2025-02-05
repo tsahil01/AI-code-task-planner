@@ -36,16 +36,18 @@ export async function chat() {
             })
 
             if (message === 'exit') {
-                console.log('Exiting...');
+                console.log('Bye! 👋');
                 return;
             }
 
+            let tokens = ''
             const loading = showLoading('Processing your request');
             const responseText = await sendLlama({ role: 'user', content: message }, (token) => {
-                logUpdate(token);
+                clearInterval(loading); 
+                tokens += token;
+                logUpdate(chalk.italic.dim(tokens));
             });
 
-            clearInterval(loading);
             logUpdate.clear();
             console.log('\n', marked(responseText));
 

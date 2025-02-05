@@ -57,17 +57,24 @@ export function cli() {
         try {
 
             if (repo) {
+                let tokens = ''
                 const loading = showLoading('Analyzing your Codebase');
                 const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
-                    logUpdate(token);
+                    clearInterval(loading); 
+                    tokens += token;
+                    logUpdate(chalk.italic.dim(tokens));
                 });
-                clearInterval(loading);
                 logUpdate.clear();
+                if (data === 'Error occurred while processing the request') {
+                    console.error(chalk.red('Error occurred while processing the request'));
+                    process.exit(1);
+                }
                 console.log('\n', marked(data));
                 await chat();
             }
         } catch (error) {
             console.error(chalk.red('Error occurred while processing the request'));
+            process.exit(1);
         }
     });
 }
