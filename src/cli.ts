@@ -3,15 +3,8 @@ import { analyzeFiles } from "./main/analyzeFiles";
 import logUpdate from "log-update";
 import { sendLlama } from "./main/llama";
 import { File } from "./config/types";
-
-const frames = ['-', '\\', '|', '/'];
-let i = 0;
-
-function showLoading(msg: string) {
-    return setInterval(() => {
-        logUpdate(`${frames[i++ % frames.length]} ${msg}...`);
-    }, 50);
-}
+import { chat } from "./main/chat";
+import { showLoading } from "./config/config";
 
 export function cli() {
     console.log('Generate Plan | v1.0.0\n\n');
@@ -58,39 +51,3 @@ export function cli() {
     });
 }
 
-
-async function chat() {
-    while (true) {
-        try {
-            const { message } = await inquirer.prompt({
-                type: 'input',
-                name: 'message',
-                message: 'You: ',
-                validate: async (input: string) => {
-                    if (input.length === 0) {
-                        return 'Please enter a valid message';
-                    }
-                    return true;
-                },
-            })
-
-            if (message === 'exit') {
-                console.log('Exiting...');
-                return;
-            }
-            const loading = showLoading('Processing your request');
-            let response = await sendLlama({ role: 'user', content: message }, (token) => {
-                logUpdate(token);
-            });
-            clearInterval(loading);
-            logUpdate.clear();
-
-            console.log('\nAnna:\n', response);
-
-        } catch (error) {
-            console.error('Error occurred while processing the request');
-            process.exit(1);
-        }
-    }
-
-}
