@@ -5,27 +5,36 @@ import { IGNORE_LIST } from "../config/consts";
 
 
 export async function analyzeFiles(dirPath: string): Promise<File> {
-    const stats = await fs.stat(dirPath);
+    try {
+        const stats = await fs.stat(dirPath);
+        if (!stats.isDirectory()) {
+            return {
+                name: path.basename(dirPath),
+                isDirectory: false,
+                extension: path.extname(dirPath).slice(1),
+                content: await fs.readFile(dirPath, "utf-8").catch(() => undefined),
+            };
+        }
 
-    if (!stats.isDirectory()) {
+        const files = await fs.readdir(dirPath);
+        const children: File[] = await Promise.all(
+            files
+                .filter((file) => !IGNORE_LIST.includes(file) && !file.startsWith(".") && !file.startsWith("tsconfig."))
+                .map(async (file) => analyzeFiles(path.join(dirPath, file)))
+        );
+
+        return {
+            name: path.basename(dirPath),
+            isDirectory: true,
+            children,
+        };
+    } catch (error) {
+        console.error(error);
         return {
             name: path.basename(dirPath),
             isDirectory: false,
             extension: path.extname(dirPath).slice(1),
-            content: await fs.readFile(dirPath, "utf-8").catch(() => undefined),
+            content: undefined,
         };
     }
-
-    const files = await fs.readdir(dirPath);
-    const children: File[] = await Promise.all(
-        files
-            .filter((file) => !IGNORE_LIST.includes(file) && !file.startsWith(".") && !file.startsWith("tsconfig."))
-            .map(async (file) => analyzeFiles(path.join(dirPath, file)))
-    );
-
-    return {
-        name: path.basename(dirPath),
-        isDirectory: true,
-        children,
-    };
 }
