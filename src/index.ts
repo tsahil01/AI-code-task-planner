@@ -10,6 +10,7 @@ process.on('uncaughtException', (error) => {
     }
 });
 async function main() {
+    console.log('\n');
     cli();
 }
 

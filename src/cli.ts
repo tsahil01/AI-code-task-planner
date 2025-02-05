@@ -28,11 +28,12 @@ marked.setOptions({
 export function cli() {
     let repo: File | null = null;
 
-    console.log(boxen(`Welcome to ${chalk.cyan('AI')} code planning assistant`, {
+    console.log(boxen(`Welcome to ${chalk.cyan.bold('AI')} code planning assistant`, {
         title: chalk.cyanBright.bold('🦙 Code Planning Assistant'),
         titleAlignment: 'left',
         textAlignment: 'center',
-        padding: 1
+        padding: 1,
+        borderStyle: 'doubleSingle',
     }));
     console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.\n'))
 
