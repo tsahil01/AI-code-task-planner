@@ -9,6 +9,7 @@ import { marked } from 'marked';
 import TerminalRenderer from 'marked-terminal';
 import chalk from 'chalk';
 import process from 'process';
+import boxen from "boxen";
 
 marked.setOptions({
     renderer: new TerminalRenderer({
@@ -27,8 +28,13 @@ marked.setOptions({
 export function cli() {
     let repo: File | null = null;
 
-    console.log(chalk.italic.greenBright('Generate Plan | v1.0.0\n'));
+    console.log(boxen(`Welcome to ${chalk.cyan('AI')} code planning assistant`, { 
+        title: chalk.cyanBright.bold('Code Planning Assistant 🦙'), 
+        titleAlignment: 'center',
+    padding: 1 }));
+        console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.'))
 
+        console.log('\n\n')
     inquirer.prompt({
         type: 'input',
         name: 'repo_path',
@@ -65,7 +71,7 @@ export function cli() {
                 loading.color = 'green';
                 loading.start();
                 const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
-                    loading.stop(); 
+                    loading.stop();
                     tokens += token;
                     logUpdate(chalk.italic.dim(tokens));
                 });
