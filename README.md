@@ -1,6 +1,7 @@
 # AI-code-task-planner
 - This is a AI code task planner for your codebase.
 - It will help you to plan your code tasks and will help you to manage your codebase.
+  
 ![ss](https://github.com/user-attachments/assets/e406dd76-7bd5-4a30-921a-a005bbfea5d1)
 
 # How to use
