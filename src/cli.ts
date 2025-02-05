@@ -28,13 +28,14 @@ marked.setOptions({
 export function cli() {
     let repo: File | null = null;
 
-    console.log(boxen(`Welcome to ${chalk.cyan('AI')} code planning assistant`, { 
-        title: chalk.cyanBright.bold('Code Planning Assistant 🦙'), 
-        titleAlignment: 'center',
-    padding: 1 }));
-        console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.'))
+    console.log(boxen(`Welcome to ${chalk.cyan('AI')} code planning assistant`, {
+        title: chalk.cyanBright.bold('🦙 Code Planning Assistant'),
+        titleAlignment: 'left',
+        textAlignment: 'center',
+        padding: 1
+    }));
+    console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.\n'))
 
-        console.log('\n\n')
     inquirer.prompt({
         type: 'input',
         name: 'repo_path',
