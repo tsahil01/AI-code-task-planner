@@ -1,5 +1,41 @@
-**4 Modules:**
-- cli
-- code analyzer
-- task planner
-- llma integration
+# AI-code-task-planner
+- This is a AI code task planner for your codebase.
+- It will help you to plan your code tasks and will help you to manage your codebase.
+
+# How to use
+## Using Clone:
+0. Install typescript and ts-node.
+```bash
+npm install -g typescript ts-node
+```
+
+1. Using Cloning the repository.
+```bash
+git clone https://github.com/tsahil01/AI-code-task-planner
+```
+
+2. Install the required packages.
+```bash
+npm install
+```
+
+3. Create a .env file and add the following variables.
+```bash
+API_KEY=<Your API Key>
+```
+- You can get free API key from https://openrouter.ai/
+- To change LLama model, go to `src/main/llama.js` and change the model name.
+
+```ts
+model: <Your Model Name>
+```
+4. Run the code.
+```bash
+npm run start
+```
+
+## Using NPM:
+1. Install the package globally.
+```bash
+npm install -g codetask
+```

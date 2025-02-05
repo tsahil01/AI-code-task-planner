@@ -1,13 +1,21 @@
 {
-  "name": "ai-code-task-planner",
+  "name": "codetask",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "AI powered code task plan generator",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "npx tsc -b && node dist/index.js"
+    "dev": "npx tsc -b && node dist/index.js",
+    "build": "npx tsc -b",
+    "start": "npx tsc -b && node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ai",
+    "code",
+    "task",
+    "planning",
+    "generator"
+  ],
+  "author": "Sahil Tiwaskar",
   "license": "ISC",
   "dependencies": {
     "@types/inquirer": "^9.0.7",
@@ -22,5 +30,12 @@
     "marked-terminal": "^7.3.0",
     "openai": "^4.82.0",
     "ora": "^8.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsahil01/AI-code-task-planner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tsahil01/AI-code-task-planner/issues"
   }
 }
