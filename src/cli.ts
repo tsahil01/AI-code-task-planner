@@ -9,12 +9,12 @@ let i = 0;
 
 function showLoading(msg: string) {
     return setInterval(() => {
-        logUpdate(`${msg}... ${frames[i++ % frames.length]}`);
+        logUpdate(`${frames[i++ % frames.length]} ${msg}...`);
     }, 50);
 }
 
 export function cli() {
-    console.log('Generate Plan | v1.0.0');
+    console.log('Generate Plan | v1.0.0\n\n');
 
     let repo: File | null = null;
     inquirer.prompt({
@@ -50,7 +50,47 @@ export function cli() {
             });
             clearInterval(loading);
             logUpdate.clear();
-            console.log(data);
+
+            await chat();
+
+
         }
     });
+}
+
+
+async function chat() {
+    while (true) {
+        try {
+            const { message } = await inquirer.prompt({
+                type: 'input',
+                name: 'message',
+                message: 'You: ',
+                validate: async (input: string) => {
+                    if (input.length === 0) {
+                        return 'Please enter a valid message';
+                    }
+                    return true;
+                },
+            })
+
+            if (message === 'exit') {
+                console.log('Exiting...');
+                return;
+            }
+            const loading = showLoading('Processing your request');
+            let response = await sendLlama({ role: 'user', content: message }, (token) => {
+                logUpdate(token);
+            });
+            clearInterval(loading);
+            logUpdate.clear();
+
+            console.log('\nAnna:\n', response);
+
+        } catch (error) {
+            console.error('Error occurred while processing the request');
+            process.exit(1);
+        }
+    }
+
 }
