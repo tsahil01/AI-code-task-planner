@@ -21,7 +21,6 @@ process.on('uncaughtException', (error) => {
 });
 
 async function getApiKey(): Promise<string> {
-    console.log("User path: ", USER_PATH);
     let apiKey = process.env.OPEN_ROUTE_API_KEY;
 
     if (!apiKey) {
@@ -36,6 +35,7 @@ async function getApiKey(): Promise<string> {
         fs.writeFileSync(USER_PATH, `OPEN_ROUTE_API_KEY=${apiKey}\n`, { flag: "w" });
 
         console.log(chalk.green("API key saved successfully. Relaunch the CLI to continue."));
+        console.log("User path: ", USER_PATH);
         process.exit(0);
     }
     return apiKey as string;
