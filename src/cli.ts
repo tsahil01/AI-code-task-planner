@@ -27,7 +27,6 @@ marked.setOptions({
 
 export async function cli() {
     let repo: File | null = null;
-    let apiKey = process.env.API_KEY;
 
     console.log(boxen(`Welcome to ${chalk.cyan.bold('AI')} code planning assistant`, {
         title: chalk.cyanBright.bold('🦙 Code Planning Assistant'),
@@ -37,19 +36,6 @@ export async function cli() {
         borderStyle: 'doubleSingle',
     }));
     console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.\n'))
-
-    if (!apiKey) {
-        const response = await inquirer.prompt({
-            type: 'input',
-            name: 'api_key',
-            message: 'Enter your API key: ',
-            validate: (input: string) => input.trim() ? true : 'API key cannot be empty',
-        });
-
-        apiKey = response.api_key;
-        process.env.API_KEY = apiKey; // Store it for the session
-    }
-
 
     inquirer.prompt({
         type: 'input',

@@ -9,9 +9,7 @@ import fs from "fs";
 import chalk from "chalk";
 
 dotenv.config();
-
-const ENV_PATH = path.resolve(__dirname, "../.env");
-
+const USER_PATH = path.resolve(process.cwd(), ".env");
 
 export let repo: File | null = null;
 process.on('uncaughtException', (error) => {
@@ -23,7 +21,7 @@ process.on('uncaughtException', (error) => {
 });
 
 async function getApiKey(): Promise<string> {
-    let apiKey = process.env.API_KEY;
+    let apiKey = process.env.OPEN_ROUTE_API_KEY;
 
     if (!apiKey) {
         const response = await inquirer.prompt({
@@ -34,7 +32,7 @@ async function getApiKey(): Promise<string> {
         });
 
         apiKey = response.api_key;
-        fs.writeFileSync(ENV_PATH, `API_KEY=${apiKey}\n`, { flag: "w" });
+        fs.writeFileSync(USER_PATH, `OPEN_ROUTE_API_KEY=${apiKey}\n`, { flag: "w" });
 
         console.log(chalk.green("API key saved successfully. Relaunch the CLI to continue."));
         process.exit(0);

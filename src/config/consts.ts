@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-export const API_KEY = process.env.API_KEY ?? "";
+export const API_KEY = process.env.OPEN_ROUTE_API_KEY ?? "";
 export const IGNORE_LIST = ["node_modules", "dist", "build", "out", "dist", "package-lock.json"];
 
 
