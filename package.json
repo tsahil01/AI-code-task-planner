@@ -1,6 +1,6 @@
 {
   "name": "code-task",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "AI powered code task plan generator",
   "main": "dist/index.js",
   "bin": {
