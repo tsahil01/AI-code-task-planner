@@ -21,6 +21,7 @@ process.on('uncaughtException', (error) => {
 });
 
 async function getApiKey(): Promise<string> {
+    console.log("User path: ", USER_PATH);
     let apiKey = process.env.OPEN_ROUTE_API_KEY;
 
     if (!apiKey) {
