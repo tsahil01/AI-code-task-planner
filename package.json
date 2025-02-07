@@ -9,8 +9,13 @@
   "scripts": {
     "dev": "npx tsc -b && node dist/index.js",
     "build": "npx tsc -b",
-    "start": "npx tsc -b && node dist/index.js"
+    "start": "npx tsc -b && node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "keywords": [
     "ai",
     "code",
@@ -21,9 +26,6 @@
   "author": "Sahil Tiwaskar",
   "license": "ISC",
   "dependencies": {
-    "@types/inquirer": "^9.0.7",
-    "@types/marked-terminal": "^6.1.1",
-    "@types/ora": "^3.1.0",
     "boxen": "^8.0.1",
     "chalk": "^5.4.1",
     "dotenv": "^16.4.7",
@@ -34,11 +36,21 @@
     "openai": "^4.82.0",
     "ora": "^8.2.0"
   },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/marked-terminal": "^6.1.1",
+    "@types/ora": "^3.1.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tsahil01/AI-code-task-planner.git"
   },
   "bugs": {
     "url": "https://github.com/tsahil01/AI-code-task-planner/issues"
-  }
+  },
+  "homepage": "https://github.com/tsahil01/AI-code-task-planner#readme"
 }

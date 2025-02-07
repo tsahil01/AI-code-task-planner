@@ -4,14 +4,11 @@ import inquirer from 'inquirer';
 import { cli } from './cli';
 import { File } from './config/types';
 import dotenv from "dotenv";
-import path from "path";
-import fs from "fs";
 import chalk from "chalk";
 
-dotenv.config();
-const USER_PATH = path.resolve(process.cwd(), ".env");
-
 export let repo: File | null = null;
+
+dotenv.config();
 process.on('uncaughtException', (error) => {
     if (error instanceof Error && error.name === 'ExitPromptError') {
         console.log('Bye! 👋');
@@ -22,20 +19,10 @@ process.on('uncaughtException', (error) => {
 
 async function getApiKey(): Promise<string> {
     let apiKey = process.env.OPEN_ROUTE_API_KEY;
-
     if (!apiKey) {
-        const response = await inquirer.prompt({
-            type: "input",
-            name: "api_key",
-            message: "Enter your API key (Get it from https://openrouter.ai/): ",
-            validate: (input: string) => (input.trim() ? true : "API key cannot be empty"),
-        });
-
-        apiKey = response.api_key;
-        fs.writeFileSync(USER_PATH, `OPEN_ROUTE_API_KEY=${apiKey}\n`, { flag: "w" });
-
-        console.log(chalk.green("API key saved successfully. Relaunch the CLI to continue."));
-        console.log("User path: ", USER_PATH);
+        console.log(chalk.red('API key not found in environment variables'));
+        console.log(chalk.yellow.italic('Please provide your OpenRouteService API key. You can get one for free from https://openrouter.ai/'));
+        console.log(chalk(`Save it in your environment variables as, ${chalk.bold.green.italic('OPEN_ROUTE_API_KEY=<Your API Key>')}`));
         process.exit(0);
     }
     return apiKey as string;
