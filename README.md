@@ -59,8 +59,13 @@ $ cd <Your Codebase>
 ```bash
 $ npm install codetask
 ```
+3. Create a .env file in project directory and add the following variables.
 
-3. Open the terminal and run the following command.
+```bash
+OPEN_ROUTE_API_KEY=<Your API Key>
+```
+
+4. Open the terminal and run the following command.
 
 ```bash
 $ npx codetask
