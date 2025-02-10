@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 
-import inquirer from 'inquirer';
 import { cli } from './cli';
-import { File } from './config/types';
 import dotenv from "dotenv";
 import chalk from "chalk";
-
-export let repo: File | null = null;
 
 dotenv.config();
 process.on('uncaughtException', (error) => {

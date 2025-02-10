@@ -1,24 +1,11 @@
 import inquirer from "inquirer";
 import { sendLlama } from "./llama";
 import logUpdate from "log-update";
-import { showLoading } from "../config/config";
+import { showLoading, terminalRenderer } from "../config/config";
 import { marked } from 'marked';
-import TerminalRenderer from 'marked-terminal';
 import chalk from 'chalk';
 
-marked.setOptions({
-    renderer: new TerminalRenderer({
-        code: chalk.yellow,
-        blockquote: chalk.gray.italic,
-        // table: true,
-        listitem: chalk.cyan,
-        strong: chalk.bold,
-        em: chalk.italic,
-        heading: chalk.bold.underline,
-        hr: chalk.gray,
-        link: chalk.blue.underline,
-    }) as any
-});
+marked.setOptions(terminalRenderer);
 
 export async function chat() {
     while (true) {
@@ -51,7 +38,8 @@ export async function chat() {
             });
 
             logUpdate.clear();
-            console.log('\n', marked(responseText));
+            console.log('\n');
+            console.log(marked(responseText));
 
         } catch (error) {
             console.error(chalk.red('Error occurred while processing the request'));

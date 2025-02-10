@@ -4,26 +4,13 @@ import logUpdate from "log-update";
 import { sendLlama } from "./main/llama";
 import { File } from "./config/types";
 import { chat } from "./main/chat";
-import { showLoading } from "./config/config";
+import { showLoading, terminalRenderer } from "./config/config";
 import { marked } from 'marked';
-import TerminalRenderer from 'marked-terminal';
 import chalk from 'chalk';
 import process from 'process';
 import boxen from "boxen";
 
-marked.setOptions({
-    renderer: new TerminalRenderer({
-        code: chalk.yellow,
-        blockquote: chalk.gray.italic,
-        // table: true,
-        listitem: chalk.cyan,
-        strong: chalk.bold,
-        em: chalk.italic,
-        heading: chalk.bold.underline,
-        hr: chalk.gray,
-        link: chalk.blue.underline,
-    }) as any
-});
+marked.setOptions(terminalRenderer);
 
 export async function cli() {
     let repo: File | null = null;
@@ -82,7 +69,8 @@ export async function cli() {
                     console.error(chalk.red('Error occurred while processing the request'));
                     process.exit(1);
                 }
-                console.log('\n', marked(data));
+                console.log('\n');
+                console.log(marked(data));
                 await chat();
             }
         } catch (error) {
