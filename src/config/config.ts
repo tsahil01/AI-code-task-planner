@@ -9,12 +9,24 @@ export function showLoading(msg: string) {
 
 export const terminalRenderer = {
         renderer: new TerminalRenderer({
-                code: chalk.yellow,
-                blockquote: chalk.gray.italic,
-                // table: true,
-                listitem: chalk.cyan,
-                strong: (text: string) => chalk.bold(text),
-                em: (text: string) => chalk.italic(text),
-                heading: (text: string) => chalk.bold.underline(text)
-        },) as any
+                showSectionPrefix: false,
+                reflowText: true,
+                width: 100,
+                tableOptions: {
+                        chars: { 'top': '', 'top-mid': '', 'top-left': '', 'top-right': '', 'bottom': '', 'bottom-mid': '', 'bottom-left': '', 'bottom-right': '', 'left': '', 'left-mid': '', 'mid': '', 'mid-mid': '', 'right': '', 'right-mid': '', 'middle': ' ' },
+                        style: { 'padding-left': 0, 'padding-right': 0 }
+                },
+                heading: chalk.bold.underline.cyanBright,
+                hr: (char: string) => chalk.gray(char),
+                code: chalk.cyanBright,
+                blockquote: chalk.italic,
+                link: chalk.blue,
+                href: chalk.underline.blue,
+                em: chalk.italic,
+                strong: chalk.bold,
+                codespan: chalk.cyan,
+                del: chalk.dim,
+                listitem: (text: string) => (chalk.greenBright(`- ${text}`)).replace(/- \[x\]/g, chalk.greenBright('- [x]')).replace(/- \[ \]/g, chalk.greenBright('- [ ]')),
+        }
+        ) as any
 }
