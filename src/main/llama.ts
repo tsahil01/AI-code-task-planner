@@ -10,7 +10,7 @@ const openai = new OpenAI({
 
 const messages: Message[] = [
     {
-        "role": "user",
+        "role": "system",
         "content": llamaInitialContext,
     },
     {
