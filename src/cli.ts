@@ -57,7 +57,14 @@ export async function cli() {
                 const loading = showLoading('Analyzing your Codebase');
                 loading.color = 'green';
                 loading.start();
-                const data = await sendLlama({ role: 'user', content: `Repo contents:  ${JSON.stringify(repo)}` }, (token) => {
+                const data = await sendLlama({
+                    role: 'user', content: `
+                    Here is the artifact that contains all the files of the project visible to you. Consider the contents of ALL files in the project/repository: \n 
+                    <ProjectFiles>
+                    ${JSON.stringify(repo)}
+                    </ProjectFiles>
+                    `
+                }, (token) => {
                     loading.stop();
                     tokens += token;
                     logUpdate(chalk.italic.dim(tokens));

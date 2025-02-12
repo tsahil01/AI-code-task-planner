@@ -45,6 +45,7 @@ For each step give detailed planning guidelines in a paragraph format and not in
 ${planningFormat}
 ${importantFormat}
 Files like ${IGNORE_LIST.join(", ")}, tsconfig.* will be ignored during the analysis.
+The user will first provide the project files in <ProjectFiles> tag and then ask for the task they want to accomplish.
 `;
 
 export const llamaInitialContextResponse = `
