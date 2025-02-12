@@ -1,13 +1,53 @@
-# AI-code-task-planner
+<h1 align="center">
+AI Code Task Planner
+</h1>
 
-- This is a AI code task planner for your codebase.
-- It will help you to plan your code tasks and will help you to manage your codebase.
+<div align="center">
+
+[![npm version](https://img.shields.io/npm/v/code-task)](https://www.npmjs.com/package/code-task)
+![downloads per week](https://img.shields.io/npm/dw/code-task)
+
+</div>
+
+<h4 align="center">
+  This is a AI code task planner for your codebase.
+  </h4>
+  <h4 align="center">
+It will help you to plan your code tasks and will help you to manage your codebase.
+</h4>
+
+
 
 ![ss](https://github.com/user-attachments/assets/e406dd76-7bd5-4a30-921a-a005bbfea5d1)
 
-# How to use
+## 📦 Installation
 
-## A. Using Clone:
+### A. Using NPM:
+
+1. Navigate to the folder where your codebase is located (package.json should be present).
+
+```bash
+$ cd <Your Codebase>
+```
+
+2. Install the package.
+
+```bash
+$ npm install codetask
+```
+3. Create a .env file in project directory and add the following variables.
+
+```bash
+OPEN_ROUTE_API_KEY=<Your API Key>
+```
+
+4. Open the terminal and run the following command.
+
+```bash
+$ npx codetask
+```
+
+### B. Using Clone:
 
 0. Install typescript and ts-node.
 
@@ -46,27 +86,3 @@ model: <Your Model Name>
 npm run start
 ```
 
-## B. Using NPM:
-
-1. Navigate to the folder where your codebase is located (package.json should be present).
-
-```bash
-$ cd <Your Codebase>
-```
-
-2. Install the package.
-
-```bash
-$ npm install codetask
-```
-3. Create a .env file in project directory and add the following variables.
-
-```bash
-OPEN_ROUTE_API_KEY=<Your API Key>
-```
-
-4. Open the terminal and run the following command.
-
-```bash
-$ npx codetask
-```
