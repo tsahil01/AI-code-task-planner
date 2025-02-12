@@ -22,19 +22,18 @@ export async function cli() {
         padding: 1,
         borderStyle: 'doubleSingle',
     }));
-    console.log(chalk.cyan('This is an AI code planning assistant that helps you plan your tasks efficiently based on your input.\n'))
+    console.log(chalk.cyan('Effortlessly plan your code tasks with the power of artificial intelligence!'));
 
     inquirer.prompt({
         type: 'input',
         name: 'repo_path',
-        message: 'Enter the path to the repository: ',
+        message: 'Enter the path to your repository (press Enter to use the current directory): ',
         default: process.cwd(),
+        transformer: (input: string) => `🔍 ${input}`,
         validate: async (input: string) => {
             try {
-                if (input.length === 0) {
-                    return 'Please enter a valid path';
-                }
-                const loading = showLoading('Reading your Codebase')
+                if (input.length === 0) input = process.cwd();
+                const loading = showLoading('Reading your Codebase');
                 loading.color = 'yellow';
                 loading.start();
                 repo = await analyzeFiles(input);
@@ -50,8 +49,7 @@ export async function cli() {
                 return 'Could not analyze the repository. Please enter a valid path';
             }
         },
-    },
-    ).then(async () => {
+    }).then(async () => {
         try {
 
             if (repo) {
@@ -71,6 +69,8 @@ export async function cli() {
                 }
                 console.log('\n');
                 console.log(marked(data));
+                console.log(chalk.greenBright(`\nExample prompts:\n`));
+                console.log(chalk.yellowBright(`- Plan a new feature for the user authentication module.\n- Refactor the existing database connection code.\n- Optimize the performance of the server-side operations.`));
                 await chat();
             }
         } catch (error) {
